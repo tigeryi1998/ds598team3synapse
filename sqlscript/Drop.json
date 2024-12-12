@@ -2,7 +2,7 @@
 	"name": "Drop",
 	"properties": {
 		"content": {
-			"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- GO",
+			"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- DROP TABLE DimDate;\n-- DROP TABLE DimDateTime;\n-- GO",
 			"metadata": {
 				"language": "sql"
 			},
