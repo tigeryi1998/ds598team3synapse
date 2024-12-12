@@ -2,7 +2,7 @@
 	"name": "ExternalAggBluebike",
 	"properties": {
 		"content": {
-			"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT,\n    trips INT,\n    stations INT,\n    bikes_lost INT,\n    bikes_not_returned INT,\n    not_start_at_dock INT,\n    avg_distance FLOAT,\n    avg_duration FLOAT,\n    avg_duration_min FLOAT,\n    avg_duration_h FLOAT,\n    avg_speed_ms FLOAT,\n    avg_speed_kmh FLOAT,\n    max_distance FLOAT,\n    max_duration FLOAT,\n    max_duration_min FLOAT,\n    max_duration_h FLOAT,\n    max_speed_ms FLOAT,\n    max_speed_kmh FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 			"metadata": {
 				"language": "sql"
 			},
