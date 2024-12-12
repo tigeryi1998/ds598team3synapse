@@ -1,0 +1,17 @@
+{
+	"name": "BlueBike",
+	"properties": {
+		"content": {
+			"query": "-- Create BlueBike table with matching data types (internal sql table)\n\nCREATE TABLE BlueBike (\n    ride_id NVARCHAR(100),\n    rideable_type NVARCHAR(100),\n    started_at DATETIME,\n    ended_at DATETIME,\n    start_station_name NVARCHAR(100),\n    start_station_id NVARCHAR(100),\n    end_station_name NVARCHAR(100),\n    end_station_id NVARCHAR(100),\n    start_lat FLOAT,\n    start_lng FLOAT,\n    end_lat FLOAT,\n    end_lng FLOAT,\n    member_casual NVARCHAR(100),\n    is_bike_lost INT,\n    is_return_to_dock INT,\n    is_start_from_dock INT,\n    distance FLOAT,\n    duration FLOAT,\n    speed_ms FLOAT,\n    speed_kmh FLOAT,\n    start_date DATE,\n    end_date DATE,\n    is_not_return_to_dock INT,\n    is_not_start_from_dock INT,\n    duration_min FLOAT,\n    duration_h FLOAT\n);\nGO\n\n-- Insert data into BlueBike\n\nINSERT INTO BlueBike (\n    ride_id,\n    rideable_type,\n    started_at,\n    ended_at,\n    start_station_name,\n    start_station_id,\n    end_station_name,\n    end_station_id,\n    start_lat,\n    start_lng,\n    end_lat,\n    end_lng,\n    member_casual,\n    is_bike_lost,\n    is_return_to_dock,\n    is_start_from_dock,\n    distance,\n    duration,\n    speed_ms,\n    speed_kmh,\n    start_date,\n    end_date,\n    is_not_return_to_dock,\n    is_not_start_from_dock,\n    duration_min,\n    duration_h\n)\nSELECT\n    ride_id,\n    rideable_type,\n    started_at,\n    ended_at,\n    start_station_name,\n    start_station_id,\n    end_station_name,\n    end_station_id,\n    start_lat,\n    start_lng,\n    end_lat,\n    end_lng,\n    member_casual,\n    is_bike_lost,\n    is_return_to_dock,\n    is_start_from_dock,\n    distance,\n    duration,\n    speed_ms,\n    speed_kmh,\n    start_date,\n    end_date,\n    is_not_return_to_dock,\n    is_not_start_from_dock,\n    duration_min,\n    duration_h\nFROM \n    ExternalBluebike;\nGO\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
