@@ -211,7 +211,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\n",
+					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -231,7 +231,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- GO",
+					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- DROP TABLE DimDate;\n-- DROP TABLE DimDateTime;\n-- GO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -271,7 +271,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create and load DimDateTime table\n-- A dimension table that breaks down date and time components.\n-- Contains detailed temporal information such as year, month, day, hour, minute, \n--and whether the date is a weekend.\n\nCREATE TABLE DimDateTime (\n    date_time DATETIME,\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    hour INT,\n    minute INT,\n    second INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\nINSERT INTO DimDateTime (started_at, date, year, month, day, \nhour, minute, second, quarter, week, \nday_of_week, day_name, month_name, is_weekend)\nSELECT DISTINCT\n    started_at,\n    CAST(started_at AS DATE) AS date,\n    DATEPART(YEAR, started_at) AS year,\n    DATEPART(MONTH, started_at) AS month,\n    DATEPART(DAY, started_at) AS day,\n    DATEPART(HOUR, started_at) AS hour,\n    DATEPART(MINUTE, started_at) AS minute,\n    DATEPART(SECOND, started_at) AS second,\n    DATEPART(QUARTER, started_at) AS quarter,\n    DATEPART(WEEK, started_at) AS week,\n    DATEPART(WEEKDAY, started_at) AS day_of_week,\n    DATENAME(WEEKDAY, started_at) AS day_name,\n    DATENAME(MONTH, started_at) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, started_at) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalBluebike;\nGO",
+					"query": "-- Create and load DimDateTime table\n-- A dimension table that breaks down date and time components.\n-- Contains detailed temporal information such as year, month, day, hour, minute, \n--and whether the date is a weekend.\n\nCREATE TABLE DimDateTime (\n    date_time DATETIME,\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    hour INT,\n    minute INT,\n    second INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\nINSERT INTO DimDateTime (date_time, date, year, month, day, \nhour, minute, second, quarter, week, \nday_of_week, day_name, month_name, is_weekend)\nSELECT DISTINCT\n    CAST(started_at AS DATETIME) AS date_time,\n    CAST(started_at AS DATE) AS date,\n    DATEPART(YEAR, started_at) AS year,\n    DATEPART(MONTH, started_at) AS month,\n    DATEPART(DAY, started_at) AS day,\n    DATEPART(HOUR, started_at) AS hour,\n    DATEPART(MINUTE, started_at) AS minute,\n    DATEPART(SECOND, started_at) AS second,\n    DATEPART(QUARTER, started_at) AS quarter,\n    DATEPART(WEEK, started_at) AS week,\n    DATEPART(WEEKDAY, started_at) AS day_of_week,\n    DATENAME(WEEKDAY, started_at) AS day_name,\n    DATENAME(MONTH, started_at) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, started_at) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalBluebike;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
