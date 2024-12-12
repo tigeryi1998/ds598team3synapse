@@ -1,8 +1,8 @@
 {
-	"name": "ExternalBluebike",
+	"name": "ExternalAggBluebike",
 	"properties": {
 		"content": {
-			"query": "-- Create external data source\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://tigeryihw1storage.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO\n\n-- Create external table ExternalWeather\nCREATE EXTERNAL TABLE ExternalWeather(\n    clouds_all SMALLINT,\n    humidity SMALLINT,\n    pressure SMALLINT,\n    temp_K FLOAT,\n    temp_min_K FLOAT,\n    temp_max_K FLOAT,\n    feels_like_K FLOAT,\n    wind_deg SMALLINT,\n    wind_gust FLOAT,\n    wind_speed FLOAT,\n    rain_1h REAL,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    temp_C FLOAT,\n    temp_min_C FLOAT,\n    temp_max_C FLOAT,\n    feels_like_C FLOAT,\n    temp_F FLOAT,\n    temp_min_F FLOAT,\n    temp_max_F FLOAT,\n    feels_like_F FLOAT,\n    lat FLOAT,\n    lon FLOAT,\n    weather_id_value INT,\n    weather_main_value NVARCHAR(100),\n    weather_description_value NVARCHAR(100),\n    weather_icon_value NVARCHAR(100)\n)\nWITH (\n    LOCATION = 'gold/processed_weather/parquet/weather.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO\n\n\n\n\n",
+			"query": "-- Create external data source\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://ds598team3.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO\n\n-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO\n\n\n\n\n",
 			"metadata": {
 				"language": "sql"
 			},
