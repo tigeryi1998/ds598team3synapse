@@ -1,0 +1,17 @@
+{
+	"name": "Validate",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
