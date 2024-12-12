@@ -99,7 +99,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create external data source\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://ds598team3.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO\n\n-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO\n\n\n\n\n",
+					"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -124,6 +124,46 @@
 			},
 			"dependsOn": [],
 			"location": "eastus2"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalBluebike')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/bluebike/parquet/bluebike.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DataSource')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create external data source\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://ds598team3.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
 		}
 	]
 }
