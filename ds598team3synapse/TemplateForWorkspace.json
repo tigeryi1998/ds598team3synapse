@@ -204,6 +204,46 @@
 				"type": "SqlQuery"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Validate')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Drop')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- GO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
 		}
 	]
 }
