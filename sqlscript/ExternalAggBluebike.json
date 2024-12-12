@@ -2,7 +2,7 @@
 	"name": "ExternalAggBluebike",
 	"properties": {
 		"content": {
-			"query": "-- Create external data source\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://ds598team3.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO\n\n-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO\n\n\n\n\n",
+			"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 			"metadata": {
 				"language": "sql"
 			},

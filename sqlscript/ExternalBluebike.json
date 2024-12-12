@@ -1,0 +1,17 @@
+{
+	"name": "ExternalBluebike",
+	"properties": {
+		"content": {
+			"query": "-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/bluebike/parquet/bluebike.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
