@@ -244,6 +244,26 @@
 				"type": "SqlQuery"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DimDate')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create and load DimDate table\n-- A dimension table focused on date attributes.\n-- Provides date details like year, month, day, quarter,\n-- and week, along with names for days and months, and a weekend indicator.\n\nCREATE TABLE DimDate (\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\n-- Populate DimDate Table from ExternalBluebike\nINSERT INTO DimDate (\n    date, year, month, day,\n    quarter, week, day_of_week, \n    day_name, month_name, is_weekend\n)\nSELECT DISTINCT\n    CAST(started_at AS DATE) AS date,\n    DATEPART(YEAR, started_at) AS year,\n    DATEPART(MONTH, started_at) AS month,\n    DATEPART(DAY, started_at) AS day,\n    DATEPART(QUARTER, started_at) AS quarter,\n    DATEPART(WEEK, started_at) AS week,\n    DATEPART(WEEKDAY, started_at) AS day_of_week,\n    DATENAME(WEEKDAY, started_at) AS day_name,\n    DATENAME(MONTH, started_at) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, started_at) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalBluebike;\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
 		}
 	]
 }
