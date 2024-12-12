@@ -99,7 +99,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT,\n    trips INT,\n    stations INT,\n    bikes_lost INT,\n    bikes_not_returned INT,\n    not_start_at_dock INT,\n    avg_distance FLOAT,\n    avg_duration FLOAT,\n    avg_duration_min FLOAT,\n    avg_duration_h FLOAT,\n    avg_speed_ms FLOAT,\n    avg_speed_kmh FLOAT,\n    max_distance FLOAT,\n    max_duration FLOAT,\n    max_duration_min FLOAT,\n    max_duration_h FLOAT,\n    max_speed_ms FLOAT,\n    max_speed_kmh FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -131,7 +131,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    date DATE, \n    riders INT\n)\nWITH (\n    LOCATION = 'gold/bluebike/parquet/bluebike.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"query": "-- Create external table ExternalBluebike\nCREATE EXTERNAL TABLE ExternalBluebike(\n    ride_id NVARCHAR(100),\n    rideable_type NVARCHAR(100),\n    started_at DATETIME,\n    ended_at DATETIME,\n    start_station_name NVARCHAR(100),\n    start_station_id NVARCHAR(100),\n    end_station_name NVARCHAR(100),\n    end_station_id NVARCHAR(100),\n    start_lat FLOAT,\n    start_lng FLOAT,\n    end_lat FLOAT,\n    end_lng FLOAT,\n    member_casual NVARCHAR(100),\n    is_bike_lost INT,\n    is_return_to_dock INT,\n    is_start_from_dock INT,\n    distance FLOAT,\n    duration FLOAT,\n    speed_ms FLOAT,\n    speed_kmh FLOAT,\n    start_date DATE,\n    end_date DATE,\n    is_not_return_to_dock INT,\n    is_not_start_from_dock INT,\n    duration_min FLOAT,\n    duration_h FLOAT\n)\nWITH (\n    LOCATION = 'gold/bluebike/parquet/bluebike.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
