@@ -2,7 +2,7 @@
 	"name": "ExternalAggBikeStations",
 	"properties": {
 		"content": {
-			"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n)\nWITH (\n    LOCATION = 'gold/agg_stations/parquet/agg_stations.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"query": "-- Create external table ExternalAggBikeStations\nCREATE EXTERNAL TABLE ExternalAggBikeStations(\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n)\nWITH (\n    LOCATION = 'gold/agg_stations/parquet/agg_stations.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 			"metadata": {
 				"language": "sql"
 			},
