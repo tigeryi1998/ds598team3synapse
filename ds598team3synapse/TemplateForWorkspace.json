@@ -311,7 +311,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create external table ExternalBikeStation\n\nCREATE EXTERNAL TABLE ExternalBikeStation(\n    Number NVARCHAR(100), \n    Name NVARCHAR(100),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Public NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/bike_station/parquet/bike_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"query": "-- Create external table ExternalBikeStation\n\nCREATE EXTERNAL TABLE ExternalBikeStation(\n    Number NVARCHAR(100), \n    Name NVARCHAR(100),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Is_Public NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/bike_station/parquet/bike_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -351,7 +351,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create BikeStation table with matching data types (internal sql table)\n\nCREATE TABLE BikeStation (\n    Number NVARCHAR(100), \n    Name NVARCHAR(100),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Public NVARCHAR(100),\n    docks INT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBlueBike (\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    District,\n    Public,\n    docks\n)\nSELECT\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    District,\n    Public,\n    docks\nFROM \n    ExternalBikeStation;\nGO",
+					"query": "-- Create BikeStation table with matching data types (internal sql table)\n\nCREATE TABLE BikeStation (\n    Number NVARCHAR(100), \n    Name NVARCHAR(100),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Is_Public NVARCHAR(100),\n    docks INT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBlueBike (\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    District,\n    Is_Public,\n    docks\n)\nSELECT\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    District,\n    Is_Public,\n    docks\nFROM \n    ExternalBikeStation;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
