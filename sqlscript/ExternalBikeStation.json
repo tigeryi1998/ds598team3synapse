@@ -2,7 +2,7 @@
 	"name": "ExternalBikeStation",
 	"properties": {
 		"content": {
-			"query": "-- Create external table ExternalBikeStation\n\nCREATE EXTERNAL TABLE ExternalBikeStation(\n    Number NVARCHAR(100), \n    Name NVARCHAR(100),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Is_Public NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/bike_station/parquet/bike_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"query": "-- Create external table ExternalBikeStation\n\nCREATE EXTERNAL TABLE ExternalBikeStation(\n    Number NVARCHAR(100), \n    Name NVARCHAR(200),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Is_Public NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/bike_station/parquet/bike_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 			"metadata": {
 				"language": "sql"
 			},
