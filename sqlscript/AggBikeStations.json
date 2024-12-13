@@ -2,7 +2,7 @@
 	"name": "AggBikeStations",
 	"properties": {
 		"content": {
-			"query": "-- Create AggBikeStations table with matching data types (internal sql table)\nCREATE TABLE AggBikeStations (\n    date DATE\n);\nGO\n\n",
+			"query": "-- Create AggBikeStations table with matching data types (internal sql table)\nCREATE TABLE AggBikeStations (\n    date DATE\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBlueBike (\n    date\n)\nSELECT\n    date\nFROM \n    ExternalAggBluebike;\nGO",
 			"metadata": {
 				"language": "sql"
 			},
