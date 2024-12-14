@@ -94,12 +94,52 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/AggBikeStations')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create AggBikeStations table with matching data types (internal sql table)\n\nCREATE TABLE AggBikeStations (\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT,\n    Latitude FLOAT,\n    Longitude FLOAT,\n    status NVARCHAR(100),\n    District NVARCHAR(100),\n    docks INT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBikeStations (\n    station_name,\n    station_id,\n    count,\n    Latitude,\n    Longitude,\n    status,\n    District,\n    docks\n)\nSELECT\n    station_name,\n    station_id,\n    count,\n    Latitude,\n    Longitude,\n    status,\n    District,\n    docks\nFROM \n    ExternalAggBikeStations;\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/AggBluebike')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
 					"query": "-- Create AggBlueBike table with matching data types (internal sql table)\nCREATE TABLE AggBlueBike (\n    date DATE, \n    riders INT,\n    trips INT,\n    stations INT,\n    bikes_lost INT,\n    bikes_not_returned INT,\n    not_start_at_dock INT,\n    avg_distance FLOAT,\n    avg_duration FLOAT,\n    avg_duration_min FLOAT,\n    avg_duration_h FLOAT,\n    avg_speed_ms FLOAT,\n    avg_speed_kmh FLOAT,\n    max_distance FLOAT,\n    max_duration FLOAT,\n    max_duration_min FLOAT,\n    max_duration_h FLOAT,\n    max_speed_ms FLOAT,\n    max_speed_kmh FLOAT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBlueBike (\n    date, \n    riders,\n    trips,\n    stations,\n    bikes_lost,\n    bikes_not_returned,\n    not_start_at_dock,\n    avg_distance,\n    avg_duration,\n    avg_duration_min,\n    avg_duration_h,\n    avg_speed_ms,\n    avg_speed_kmh,\n    max_distance,\n    max_duration,\n    max_duration_min,\n    max_duration_h,\n    max_speed_ms,\n    max_speed_kmh\n)\nSELECT\n    date, \n    riders,\n    trips,\n    stations,\n    bikes_lost,\n    bikes_not_returned,\n    not_start_at_dock,\n    avg_distance,\n    avg_duration,\n    avg_duration_min,\n    avg_duration_h,\n    avg_speed_ms,\n    avg_speed_kmh,\n    max_distance,\n    max_duration,\n    max_duration_min,\n    max_duration_h,\n    max_speed_ms,\n    max_speed_kmh\nFROM \n    ExternalAggBluebike;\nGO\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/BikeStation')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create BikeStation table with matching data types (internal sql table)\n\nCREATE TABLE BikeStation (\n    Number NVARCHAR(100), \n    Name NVARCHAR(200),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    status NVARCHAR(100),\n    District NVARCHAR(100),\n    docks INT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO BikeStation (\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    status,\n    District,\n    docks\n)\nSELECT\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    status,\n    District,\n    docks\nFROM \n    ExternalBikeStation;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -214,12 +254,52 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalAggBikeStations')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create external table ExternalAggBikeStations\n\nCREATE EXTERNAL TABLE ExternalAggBikeStations(\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT,\n    Latitude FLOAT,\n    Longitude FLOAT,\n    status NVARCHAR(100),\n    District NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/agg_stations/parquet/agg_stations.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/ExternalAggBluebike')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
 					"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT,\n    trips INT,\n    stations INT,\n    bikes_lost INT,\n    bikes_not_returned INT,\n    not_start_at_dock INT,\n    avg_distance FLOAT,\n    avg_duration FLOAT,\n    avg_duration_min FLOAT,\n    avg_duration_h FLOAT,\n    avg_speed_ms FLOAT,\n    avg_speed_kmh FLOAT,\n    max_distance FLOAT,\n    max_duration FLOAT,\n    max_duration_min FLOAT,\n    max_duration_h FLOAT,\n    max_speed_ms FLOAT,\n    max_speed_kmh FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalBikeStation')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create external table ExternalBikeStation\n\nCREATE EXTERNAL TABLE ExternalBikeStation(\n    Number NVARCHAR(100), \n    Name NVARCHAR(200),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    status NVARCHAR(100),\n    District NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/bike_station/parquet/bike_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -284,86 +364,6 @@
 			},
 			"dependsOn": [],
 			"location": "eastus2"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/ExternalAggBikeStations')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- Create external table ExternalAggBikeStations\n\nCREATE EXTERNAL TABLE ExternalAggBikeStations(\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n)\nWITH (\n    LOCATION = 'gold/agg_stations/parquet/agg_stations.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/ExternalBikeStation')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- Create external table ExternalBikeStation\n\nCREATE EXTERNAL TABLE ExternalBikeStation(\n    Number NVARCHAR(100), \n    Name NVARCHAR(200),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Is_Public NVARCHAR(100),\n    docks INT\n)\nWITH (\n    LOCATION = 'gold/bike_station/parquet/bike_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AggBikeStations')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- Create AggBikeStations table with matching data types (internal sql table)\n\nCREATE TABLE AggBikeStations (\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBikeStations (\n    station_name,\n    station_id,\n    count\n)\nSELECT\n    station_name,\n    station_id,\n    count\nFROM \n    ExternalAggBikeStations;\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/BikeStation')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- Create BikeStation table with matching data types (internal sql table)\n\nCREATE TABLE BikeStation (\n    Number NVARCHAR(100), \n    Name NVARCHAR(200),\n    Latitude FLOAT,\n    Longitude FLOAT,\n    District NVARCHAR(100),\n    Is_Public NVARCHAR(100),\n    docks INT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO BikeStation (\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    District,\n    Is_Public,\n    docks\n)\nSELECT\n    Number, \n    Name,\n    Latitude,\n    Longitude,\n    District,\n    Is_Public,\n    docks\nFROM \n    ExternalBikeStation;\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
 		}
 	]
 }
