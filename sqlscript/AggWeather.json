@@ -2,7 +2,7 @@
 	"name": "AggWeather",
 	"properties": {
 		"content": {
-			"query": "-- Create the AggWeather table\nCREATE TABLE AggWeather (\n    date NVARCHAR(100),\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n);\nGO\n\n-- Insert data into AggWeather\nINSERT INTO AggWeather (date, avg_temp_C, avg_humidity, avg_wind_speed, max_temp_F, min_temp_, weather_records)\nSELECT \n    date,\n    avg_temp_C, \n    avg_humidity,\n    avg_wind_speed,\n    max_temp_F,\n    min_temp_F,\n    weather_records\nFROM \n    ExternalAggWeather\nGO",
+			"query": "-- Create the AggWeather table\nCREATE TABLE AggWeather (\n    date NVARCHAR(100),\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n);\nGO\n\n-- Insert data into AggWeather\nINSERT INTO AggWeather (date, avg_temp_C, avg_humidity, avg_wind_speed, max_temp_F, min_temp_F, weather_records)\nSELECT \n    date,\n    avg_temp_C, \n    avg_humidity,\n    avg_wind_speed,\n    max_temp_F,\n    min_temp_F,\n    weather_records\nFROM \n    ExternalAggWeather\nGO",
 			"metadata": {
 				"language": "sql"
 			},
