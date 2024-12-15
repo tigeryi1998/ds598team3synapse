@@ -2,7 +2,7 @@
 	"name": "ExternalAggWeather",
 	"properties": {
 		"content": {
-			"query": "CREATE EXTERNAL TABLE ExternalAggWeather (\n    date NVARCHAR(100),\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n)\nWITH (\n    LOCATION = 'gold/agg_weather/agg_weather.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat \n);\nGO",
+			"query": "CREATE EXTERNAL TABLE ExternalAggWeather (\n    date DATE,\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n)\nWITH (\n    LOCATION = 'gold/agg_weather/agg_weather.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat \n);\nGO",
 			"metadata": {
 				"language": "sql"
 			},
