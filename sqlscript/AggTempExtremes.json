@@ -1,5 +1,5 @@
 {
-	"name": "SQL script 1",
+	"name": "AggTempExtremes",
 	"properties": {
 		"content": {
 			"query": "CREATE TABLE AggTempExtremes (\n    date Date,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT\n);\nGO\n\n-- Insert data into AggTempExtremes\nINSERT INTO AggTempExtremes (\n    date, \n    max_temp_F, \n    min_temp_F\n)\nSELECT \n    date,\n    max_temp_F,\n    min_temp_F\nFROM \n    ExternalAggTempExtremes\nGO",
