@@ -179,7 +179,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create external data source\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://ds598team3.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO",
+					"query": "-- Create external data source DataSource\nCREATE EXTERNAL DATA SOURCE MyDataSource\nWITH (\n    LOCATION = 'https://ds598team3.dfs.core.windows.net/data'\n);\nGO\n\n-- Create external file format\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat\nWITH (\nFORMAT_TYPE = PARQUET\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -239,7 +239,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- DROP EXTERNAL TABLE ExternalBikeStation;\n-- DROP EXTERNAL TABLE ExternalAggBikeStations;\nDROP EXTERNAL TABLE ExternalWeather;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- DROP TABLE DimDate;\n-- DROP TABLE DimDateTime;\n-- DROP TABLE BikeStation;\n-- DROP TABLE AggBikeStations;\nDROP TABLE FactWeather;\n-- GO",
+					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- DROP EXTERNAL TABLE ExternalBikeStation;\n-- DROP EXTERNAL TABLE ExternalAggBikeStations;\n-- DROP EXTERNAL TABLE ExternalWeather;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- DROP TABLE DimDate;\n-- DROP TABLE DimDateTime;\n-- DROP TABLE BikeStation;\n-- DROP TABLE AggBikeStations;\n-- DROP TABLE FactWeather;\n-- GO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -391,7 +391,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create FactWeather table with matching data types\n\nCREATE TABLE FactWeather(\n    clouds_all SMALLINT,\n    feels_like_K FLOAT,\n    humidity SMALLINT,\n    pressure SMALLINT,\n    temp_K FLOAT,\n    temp_max_K FLOAT,\n    temp_min_K FLOAT,\n    wind_deg SMALLINT,\n    wind_gust FLOAT,\n    wind_speed FLOAT,\n    rain_1h REAL,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    temp_C FLOAT,\n    temp_min_C FLOAT,\n    temp_max_C FLOAT,\n    feels_like_C FLOAT,\n    temp_F FLOAT,\n    temp_min_F FLOAT,\n    temp_max_F FLOAT,\n    feels_like_F FLOAT,\n    lat FLOAT,\n    lon FLOAT,\n    weather_id_value integer,\n    weather_mail_value NVARCHAR(100),\n    weather_description_value NVARCHAR(100),\n    weather_icon_value NVARCHAR(100),\n    weather_combined_value NVARCHAR(200)\n)\n-- Insert data into FactWeather\nINSERT INTO FactWeather\nSELECT\n    clouds_all,\n    feels_like_K,\n    humidity,\n    pressure,\n    temp_K,\n    temp_max_K,\n    temp_min_K,\n    wind_deg,\n    wind_gust,\n    wind_speed,\n    rain_1h,\n    corrected_timestamp,\n    location,\n    date_time,\n    CAST(date_time AS DATE) AS date,\n    id,\n    temp_C,\n    temp_min_C,\n    temp_max_C,\n    feels_like_C,\n    temp_F,\n    temp_min_F,\n    temp_max_F,\n    feels_like_F,\n    lat,\n    lon,\n    CONCAT(weather_id_value, '_', weather_icon_value) AS weather_combined_value\nFROM ExternalWeather;\nGO",
+					"query": "-- Create FactWeather table with matching data types\n\nCREATE TABLE FactWeather(\n    clouds_all SMALLINT,\n    feels_like_K FLOAT,\n    humidity SMALLINT,\n    pressure SMALLINT,\n    temp_K FLOAT,\n    temp_max_K FLOAT,\n    temp_min_K FLOAT,\n    wind_deg SMALLINT,\n    wind_gust FLOAT,\n    wind_speed FLOAT,\n    rain_1h REAL,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    date DATE,\n    id NVARCHAR(100),\n    temp_C FLOAT,\n    temp_min_C FLOAT,\n    temp_max_C FLOAT,\n    feels_like_C FLOAT,\n    temp_F FLOAT,\n    temp_min_F FLOAT,\n    temp_max_F FLOAT,\n    feels_like_F FLOAT,\n    lat FLOAT,\n    lon FLOAT,\n    weather_id_value integer,\n    weather_mail_value NVARCHAR(100),\n    weather_description_value NVARCHAR(100),\n    weather_icon_value NVARCHAR(100),\n    weather_combined_value NVARCHAR(200)\n)\n\n-- Insert data into FactWeather\nINSERT INTO FactWeather\nSELECT\n    clouds_all,\n    feels_like_K,\n    humidity,\n    pressure,\n    temp_K,\n    temp_max_K,\n    temp_min_K,\n    wind_deg,\n    wind_gust,\n    wind_speed,\n    rain_1h,\n    corrected_timestamp,\n    location,\n    date_time,\n    CAST(date_time AS DATE) AS date,\n    id,\n    temp_C,\n    temp_min_C,\n    temp_max_C,\n    feels_like_C,\n    temp_F,\n    temp_min_F,\n    temp_max_F,\n    feels_like_F,\n    lat,\n    lon,\n    weather_id_value,\n    weather_mail_value,\n    weather_description_value,\n    weather_icon_value,\n    CONCAT(weather_id_value, '_', weather_icon_value) AS weather_combined_value\nFROM ExternalWeather;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
