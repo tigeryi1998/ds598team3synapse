@@ -2,7 +2,7 @@
 	"name": "ExternalAirPollution",
 	"properties": {
 		"content": {
-			"query": "CREATE EXTERNAL TABLE ExternalAirPollution (\n    lon FLOAT,\n    lat FLOAT,\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME2,\n    id NVARCHAR(100),\n    o3_8hr FLOAT,\n    o3_1hr FLOAT,\n    pm2_5_24hr FLOAT,\n    pm10_24hr FLOAT,\n    co_8hr FLOAT,\n    so2_1hr FLOAT,\n    so2_24hr FLOAT,\n    no2_1hr FLOAT,\n    us_aqi INT\n)\nWITH (\n    LOCATION = 'gold/processed_air_pollution/processed_air_pollution.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"query": "CREATE EXTERNAL TABLE ExternalAirPollution (\n    lon FLOAT,\n    lat FLOAT,\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    o3_8hr FLOAT,\n    o3_1hr FLOAT,\n    pm2_5_24hr FLOAT,\n    pm10_24hr FLOAT,\n    co_8hr FLOAT,\n    so2_1hr FLOAT,\n    so2_24hr FLOAT,\n    no2_1hr FLOAT,\n    us_aqi INT\n)\nWITH (\n    LOCATION = 'gold/processed_air_pollution/processed_air_pollution.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 			"metadata": {
 				"language": "sql"
 			},
