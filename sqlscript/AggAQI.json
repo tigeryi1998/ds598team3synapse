@@ -2,7 +2,7 @@
 	"name": "AggAQI",
 	"properties": {
 		"content": {
-			"query": "CREATE TABLE AggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n);\nGO\n\n-- Insert data into AggWeather\nINSERT INTO AggAQI (\n    date, \n    avg_us_aqi\n)\nSELECT \n    date,\n    avg_us_aqi\nFROM \n    ExternalAggAQI\nGO",
+			"query": "CREATE TABLE AggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n);\nGO\n\n-- Insert data into AggAQI\nINSERT INTO AggAQI (\n    date, \n    avg_us_aqi\n)\nSELECT \n    date,\n    avg_us_aqi\nFROM \n    ExternalAggAQI\nGO",
 			"metadata": {
 				"language": "sql"
 			},
