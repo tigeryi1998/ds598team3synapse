@@ -1,0 +1,17 @@
+{
+	"name": "ExternalAggAQI",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE ExternalAggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_aqi/agg_aqi.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
