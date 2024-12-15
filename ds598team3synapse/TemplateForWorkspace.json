@@ -339,7 +339,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\nSELECT TOP 10 * FROM AggBikeStations;\nSELECT TOP 10 * FROM BikeStation;\n",
+					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\nSELECT TOP 10 * FROM AggBikeStations;\nSELECT TOP 10 * FROM BikeStation;\nSELECT TOP 10 * FROM FactWeather;",
 					"metadata": {
 						"language": "sql"
 					},
