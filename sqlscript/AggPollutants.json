@@ -1,0 +1,17 @@
+{
+	"name": "AggPollutants",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE AggPollutants (\n    date DATE,\n    avg_co FLOAT,\n    avg_no2 FLOAT,\n    avg_o3 FLOAT,\n    avg_so2 FLOAT,\n    avg_pm2_5 FLOAT,\n    avg_pm10 FLOAT\n);\nGO\n\n-- Insert data into AggWeather\nINSERT INTO AggPollutants (date, avg_co, avg_no2, avg_o3, avg_so2, avg_pm2_5, avg_pm10)\nSELECT \n    date,\n    avg_co,\n    avg_no2,\n    avg_o3,\n    avg_so2,\n    avg_pm2_5,\n    avg_pm10\nFROM \n    ExternalAggPollutants\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
