@@ -2,7 +2,7 @@
 	"name": "Validate",
 	"properties": {
 		"content": {
-			"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\nSELECT TOP 10 * FROM AggBikeStations;\nSELECT TOP 10 * FROM BikeStation;\nSELECT TOP 10 * FROM FactWeather;\nSELECT TOP 10 * FROM AirPollution;\nSELECT TOP 10 * FROM DimAirPollution;\n",
+			"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\nSELECT TOP 10 * FROM AggBikeStations;\nSELECT TOP 10 * FROM BikeStation;\nSELECT TOP 10 * FROM FactWeather;\nSELECT TOP 10 * FROM AirPollution;\nSELECT TOP 10 * FROM DimAirPollution;\nSELECT TOP 10 * FROM AggWeather;\n",
 			"metadata": {
 				"language": "sql"
 			},
