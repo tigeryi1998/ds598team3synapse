@@ -1,0 +1,17 @@
+{
+	"name": "ExternalAggTempExtremes",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE ExternalAggTempExtremes (\n    date Date,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_temp_extremes/agg_temp_extremes.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
