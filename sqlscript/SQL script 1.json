@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "-- Create and load DimAirPollution table\nCREATE TABLE DimAirPollution (\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    id NVARCHAR(100)\n);\nGO\n\nINSERT INTO DimAirPollution (\n    aqi, \n    co, \n    no, \n    no2, \n    o3, \n    so2, \n    pm2_5, \n    pm10, \n    nh3, \n    id\n)\nSELECT DISTINCT\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    id\nFROM\n ExternalAirPollution;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
