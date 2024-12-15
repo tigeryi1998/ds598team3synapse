@@ -1,0 +1,17 @@
+{
+	"name": "ExternalAggPollutants",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE ExternalAggPollutants (\n    date DATE,\n    avg_co FLOAT,\n    avg_no2 FLOAT,\n    avg_o3 FLOAT,\n    avg_so2 FLOAT,\n    avg_pm2_5 FLOAT,\n    avg_pm10 FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_pollutants/agg_pollutants.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
