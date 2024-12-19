@@ -1,0 +1,17 @@
+{
+	"name": "AggDateStations",
+	"properties": {
+		"content": {
+			"query": "-- Create AggDateStations table with matching data types (internal sql table)\n\nCREATE TABLE AggDateStations (\n    start_date DATE,\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n);\nGO\n\n-- Insert data into AggDateStations\nINSERT INTO AggDateStations (\n    station_name,\n    station_id,\n    count\n)\nSELECT\n    start_date\n    station_name,\n    station_id,\n    count\nFROM \n    ExternalAggDateStations;\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
