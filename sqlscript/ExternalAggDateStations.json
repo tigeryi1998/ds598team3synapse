@@ -1,0 +1,17 @@
+{
+	"name": "ExternalAggDateStations",
+	"properties": {
+		"content": {
+			"query": "-- Create external table ExternalAggDateStations\n\nCREATE EXTERNAL TABLE ExternalAggDateStations(\n    start_date DATE,\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n)\nWITH (\n    LOCATION = 'gold/agg_date_station/parquet/agg_date_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "ds598team3sqlpool",
+				"poolName": "ds598team3sqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
