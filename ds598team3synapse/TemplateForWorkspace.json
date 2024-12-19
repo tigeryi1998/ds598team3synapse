@@ -94,6 +94,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/AggAQI')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE TABLE AggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n);\nGO\n\n-- Insert data into AggAQI\nINSERT INTO AggAQI (\n    date, \n    avg_us_aqi\n)\nSELECT \n    date,\n    avg_us_aqi\nFROM \n    ExternalAggAQI\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/AggBikeStations')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
@@ -120,6 +140,86 @@
 			"properties": {
 				"content": {
 					"query": "-- Create AggBlueBike table with matching data types (internal sql table)\nCREATE TABLE AggBlueBike (\n    date DATE, \n    riders INT,\n    trips INT,\n    stations INT,\n    bikes_lost INT,\n    bikes_not_returned INT,\n    not_start_at_dock INT,\n    avg_distance FLOAT,\n    avg_duration FLOAT,\n    avg_duration_min FLOAT,\n    avg_duration_h FLOAT,\n    avg_speed_ms FLOAT,\n    avg_speed_kmh FLOAT,\n    max_distance FLOAT,\n    max_duration FLOAT,\n    max_duration_min FLOAT,\n    max_duration_h FLOAT,\n    max_speed_ms FLOAT,\n    max_speed_kmh FLOAT\n);\nGO\n\n-- Insert data into AggBlueBike\nINSERT INTO AggBlueBike (\n    date, \n    riders,\n    trips,\n    stations,\n    bikes_lost,\n    bikes_not_returned,\n    not_start_at_dock,\n    avg_distance,\n    avg_duration,\n    avg_duration_min,\n    avg_duration_h,\n    avg_speed_ms,\n    avg_speed_kmh,\n    max_distance,\n    max_duration,\n    max_duration_min,\n    max_duration_h,\n    max_speed_ms,\n    max_speed_kmh\n)\nSELECT\n    date, \n    riders,\n    trips,\n    stations,\n    bikes_lost,\n    bikes_not_returned,\n    not_start_at_dock,\n    avg_distance,\n    avg_duration,\n    avg_duration_min,\n    avg_duration_h,\n    avg_speed_ms,\n    avg_speed_kmh,\n    max_distance,\n    max_duration,\n    max_duration_min,\n    max_duration_h,\n    max_speed_ms,\n    max_speed_kmh\nFROM \n    ExternalAggBluebike;\nGO\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AggPollutants')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE TABLE AggPollutants (\n    date DATE,\n    avg_co FLOAT,\n    avg_no2 FLOAT,\n    avg_o3 FLOAT,\n    avg_so2 FLOAT,\n    avg_pm2_5 FLOAT,\n    avg_pm10 FLOAT\n);\nGO\n\n-- Insert data into AggPollutants\nINSERT INTO AggPollutants (date, avg_co, avg_no2, avg_o3, avg_so2, avg_pm2_5, avg_pm10)\nSELECT \n    date,\n    avg_co,\n    avg_no2,\n    avg_o3,\n    avg_so2,\n    avg_pm2_5,\n    avg_pm10\nFROM \n    ExternalAggPollutants\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AggTempExtremes')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE TABLE AggTempExtremes (\n    date Date,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT\n);\nGO\n\n-- Insert data into AggTempExtremes\nINSERT INTO AggTempExtremes (\n    date, \n    max_temp_F, \n    min_temp_F\n)\nSELECT \n    date,\n    max_temp_F,\n    min_temp_F\nFROM \n    ExternalAggTempExtremes\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AggWeather')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create the AggWeather table\nCREATE TABLE AggWeather (\n    date DATE,\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n);\nGO\n\n-- Insert data into AggWeather\nINSERT INTO AggWeather (date, avg_temp_C, avg_humidity, avg_wind_speed, max_temp_F, min_temp_F, weather_records)\nSELECT \n    date,\n    avg_temp_C, \n    avg_humidity,\n    avg_wind_speed,\n    max_temp_F,\n    min_temp_F,\n    weather_records\nFROM \n    ExternalAggWeather\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AirPollution')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create and load AirPollution table\nCREATE TABLE AirPollution (\n    lon FLOAT,\n    lat FLOAT,\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    o3_8hr FLOAT,\n    o3_1hr FLOAT,\n    pm2_5_24hr FLOAT,\n    pm10_24hr FLOAT,\n    co_8hr FLOAT,\n    so2_1hr FLOAT,\n    so2_24hr FLOAT,\n    no2_1hr FLOAT,\n    us_aqi INT,\n    date DATE\n);\nGO\n\nINSERT INTO AirPollution (\n    lon,\n    lat,\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    corrected_timestamp,\n    location,\n    date_time,\n    id,\n    o3_8hr,\n    o3_1hr,\n    pm2_5_24hr,\n    pm10_24hr,\n    co_8hr,\n    so2_1hr,\n    so2_24hr,\n    no2_1hr,\n    us_aqi,\n    date\n)\nSELECT\n    lon,\n    lat,\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    corrected_timestamp,\n    location,\n    date_time,\n    id,\n    o3_8hr,\n    o3_1hr,\n    pm2_5_24hr,\n    pm10_24hr,\n    co_8hr,\n    so2_1hr,\n    so2_24hr,\n    no2_1hr,\n    us_aqi,\n    CAST(date_time AS DATE) AS date\nFROM\n    ExternalAirPollution;",
 					"metadata": {
 						"language": "sql"
 					},
@@ -194,12 +294,32 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/DimAirPollution')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Create and load DimAirPollution table\nCREATE TABLE DimAirPollution (\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    id NVARCHAR(100)\n);\nGO\n\nINSERT INTO DimAirPollution (\n    aqi, \n    co, \n    no, \n    no2, \n    o3, \n    so2, \n    pm2_5, \n    pm10, \n    nh3, \n    id\n)\nSELECT DISTINCT\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    id\nFROM\n    ExternalAirPollution;",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/DimDate')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create and load DimDate table\n-- A dimension table focused on date attributes.\n-- Provides date details like year, month, day, quarter,\n-- and week, along with names for days and months, and a weekend indicator.\n\nCREATE TABLE DimDate (\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\n-- Populate DimDate Table from ExternalBluebike\nINSERT INTO DimDate (\n    date, year, month, day,\n    quarter, week, day_of_week, \n    day_name, month_name, is_weekend\n)\nSELECT DISTINCT\n    CAST(started_at AS DATE) AS date,\n    DATEPART(YEAR, started_at) AS year,\n    DATEPART(MONTH, started_at) AS month,\n    DATEPART(DAY, started_at) AS day,\n    DATEPART(QUARTER, started_at) AS quarter,\n    DATEPART(WEEK, started_at) AS week,\n    DATEPART(WEEKDAY, started_at) AS day_of_week,\n    DATENAME(WEEKDAY, started_at) AS day_name,\n    DATENAME(MONTH, started_at) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, started_at) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalBluebike;\nGO",
+					"query": "-- Create and load DimDate table\n-- A dimension table focused on date attributes.\n-- Provides date details like year, month, day, quarter,\n-- and week, along with names for days and months, and a weekend indicator.\n\nCREATE TABLE DimDate (\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\n-- Populate DimDate Table from ExternalBluebike\nINSERT INTO DimDate (\n    date, year, month, day,\n    quarter, week, day_of_week, \n    day_name, month_name, is_weekend\n)\nSELECT DISTINCT\n    CAST(date_time AS DATE) AS date,\n    DATEPART(YEAR, date_time) AS year,\n    DATEPART(MONTH, date_time) AS month,\n    DATEPART(DAY, date_time) AS day,\n    DATEPART(QUARTER, date_time) AS quarter,\n    DATEPART(WEEK, date_time) AS week,\n    DATEPART(WEEKDAY, date_time) AS day_of_week,\n    DATENAME(WEEKDAY, date_time) AS day_name,\n    DATENAME(MONTH, date_time) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, date_time) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalWeather;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -219,7 +339,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create and load DimDateTime table\n-- A dimension table that breaks down date and time components.\n-- Contains detailed temporal information such as year, month, day, hour, minute, \n--and whether the date is a weekend.\n\nCREATE TABLE DimDateTime (\n    date_time DATETIME,\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    hour INT,\n    minute INT,\n    second INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\nINSERT INTO DimDateTime (date_time, date, year, month, day, \nhour, minute, second, quarter, week, \nday_of_week, day_name, month_name, is_weekend)\nSELECT DISTINCT\n    CAST(started_at AS DATETIME) AS date_time,\n    CAST(started_at AS DATE) AS date,\n    DATEPART(YEAR, started_at) AS year,\n    DATEPART(MONTH, started_at) AS month,\n    DATEPART(DAY, started_at) AS day,\n    DATEPART(HOUR, started_at) AS hour,\n    DATEPART(MINUTE, started_at) AS minute,\n    DATEPART(SECOND, started_at) AS second,\n    DATEPART(QUARTER, started_at) AS quarter,\n    DATEPART(WEEK, started_at) AS week,\n    DATEPART(WEEKDAY, started_at) AS day_of_week,\n    DATENAME(WEEKDAY, started_at) AS day_name,\n    DATENAME(MONTH, started_at) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, started_at) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalBluebike;\nGO",
+					"query": "-- Create and load DimDateTime table\n-- A dimension table that breaks down date and time components.\n-- Contains detailed temporal information such as year, month, day, hour, minute, \n--and whether the date is a weekend.\n\nCREATE TABLE DimDateTime (\n    date_time DATETIME,\n    date DATE,\n    year INT,\n    month INT,\n    day INT,\n    hour INT,\n    minute INT,\n    second INT,\n    quarter INT,\n    week INT,\n    day_of_week INT,\n    day_name VARCHAR(10),\n    month_name VARCHAR(10),\n    is_weekend BIT\n);\nGO\n\nINSERT INTO DimDateTime (date_time, date, year, month, day, \nhour, minute, second, quarter, week, \nday_of_week, day_name, month_name, is_weekend)\nSELECT DISTINCT\n    CAST(date_time AS DATETIME) AS date_time,\n    CAST(date_time AS DATE) AS date,\n    DATEPART(YEAR, date_time) AS year,\n    DATEPART(MONTH, date_time) AS month,\n    DATEPART(DAY, date_time) AS day,\n    DATEPART(HOUR, date_time) AS hour,\n    DATEPART(MINUTE, date_time) AS minute,\n    DATEPART(SECOND, date_time) AS second,\n    DATEPART(QUARTER, date_time) AS quarter,\n    DATEPART(WEEK, date_time) AS week,\n    DATEPART(WEEKDAY, date_time) AS day_of_week,\n    DATENAME(WEEKDAY, date_time) AS day_name,\n    DATENAME(MONTH, date_time) AS month_name,\n    CASE WHEN DATEPART(WEEKDAY, date_time) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend\nFROM\n    ExternalWeather;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -239,7 +359,27 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- DROP EXTERNAL TABLE ExternalBikeStation;\n-- DROP EXTERNAL TABLE ExternalAggBikeStations;\n-- DROP EXTERNAL TABLE ExternalWeather;\n-- DROP EXTERNAL TABLE ExternalAirPollution;\n-- DROP EXTERNAL TABLE ExternalAggWeather;\n-- DROP EXTERNAL TABLE ExternalAggAQI;\n-- DROP EXTERNAL TABLE ExternalAggPollutants;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- DROP TABLE DimDate;\n-- DROP TABLE DimDateTime;\n-- DROP TABLE BikeStation;\n-- DROP TABLE AggBikeStations;\n-- DROP TABLE FactWeather;\n-- DROP TABLE DimAirPollution;\n-- DROP TABLE AirPollution;\n-- DROP TABLE AggWeather;\n-- DROP TABLE AggAQI;\n-- DROP TABLE AggPollutants;\n-- GO",
+					"query": "-- Drop external tables\n-- DROP EXTERNAL TABLE ExternalBluebike;\n-- DROP EXTERNAL TABLE ExternalAggBluebike;\n-- DROP EXTERNAL TABLE ExternalBikeStation;\n-- DROP EXTERNAL TABLE ExternalAggBikeStations;\n-- DROP EXTERNAL TABLE ExternalWeather;\n-- DROP EXTERNAL TABLE ExternalAirPollution;\n-- DROP EXTERNAL TABLE ExternalAggWeather;\n-- DROP EXTERNAL TABLE ExternalAggAQI;\n-- DROP EXTERNAL TABLE ExternalAggPollutants;\n-- DROP EXTERNAL TABLE ExternalAggTempExtremes;\n-- GO\n\n-- Drop regular tables\n-- DROP TABLE BlueBike;\n-- DROP TABLE AggBlueBike;\n-- DROP TABLE DimDate;\n-- DROP TABLE DimDateTime;\n-- DROP TABLE BikeStation;\n-- DROP TABLE AggBikeStations;\n-- DROP TABLE FactWeather;\n-- DROP TABLE DimAirPollution;\n-- DROP TABLE AirPollution;\n-- DROP TABLE AggWeather;\n-- DROP TABLE AggAQI;\n-- DROP TABLE AggPollutants;\n-- DROP TABLE AggTempExtremes;\n-- GO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalAggAQI')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE ExternalAggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_aqi/agg_aqi.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -280,6 +420,86 @@
 			"properties": {
 				"content": {
 					"query": "-- Create external table ExternalAggBluebike\nCREATE EXTERNAL TABLE ExternalAggBluebike(\n    date DATE, \n    riders INT,\n    trips INT,\n    stations INT,\n    bikes_lost INT,\n    bikes_not_returned INT,\n    not_start_at_dock INT,\n    avg_distance FLOAT,\n    avg_duration FLOAT,\n    avg_duration_min FLOAT,\n    avg_duration_h FLOAT,\n    avg_speed_ms FLOAT,\n    avg_speed_kmh FLOAT,\n    max_distance FLOAT,\n    max_duration FLOAT,\n    max_duration_min FLOAT,\n    max_duration_h FLOAT,\n    max_speed_ms FLOAT,\n    max_speed_kmh FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_bluebike/parquet/bluebike_agg.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalAggPollutants')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE ExternalAggPollutants (\n    date DATE,\n    avg_co FLOAT,\n    avg_no2 FLOAT,\n    avg_o3 FLOAT,\n    avg_so2 FLOAT,\n    avg_pm2_5 FLOAT,\n    avg_pm10 FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_pollutants/agg_pollutants.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalAggTempExtremes')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE ExternalAggTempExtremes (\n    date Date,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_temp_extremes/agg_temp_extremes.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalAggWeather')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE ExternalAggWeather (\n    date DATE,\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n)\nWITH (\n    LOCATION = 'gold/agg_weather/agg_weather.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat \n);\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ds598team3sqlpool",
+						"poolName": "ds598team3sqlpool"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ExternalAirPollution')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE ExternalAirPollution (\n    lon FLOAT,\n    lat FLOAT,\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    o3_8hr FLOAT,\n    o3_1hr FLOAT,\n    pm2_5_24hr FLOAT,\n    pm10_24hr FLOAT,\n    co_8hr FLOAT,\n    so2_1hr FLOAT,\n    so2_24hr FLOAT,\n    no2_1hr FLOAT,\n    us_aqi INT\n)\nWITH (\n    LOCATION = 'gold/processed_air_pollution/processed_air_pollution.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -379,7 +599,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\nSELECT TOP 10 * FROM AggBikeStations;\nSELECT TOP 10 * FROM BikeStation;\nSELECT TOP 10 * FROM FactWeather;\nSELECT TOP 10 * FROM AirPollution;\nSELECT TOP 10 * FROM DimAirPollution;\nSELECT TOP 10 * FROM AggWeather;\nSELECT TOP 10 * FROM AggAQI;\nSELECT TOP 10 * FROM AggPollutants;",
+					"query": "SELECT TOP 10 * FROM BlueBike;\nSELECT TOP 10 * FROM AggBlueBike;\nSELECT TOP 10 * FROM DimDate;\nSELECT TOP 10 * FROM DimDateTime;\nSELECT TOP 10 * FROM AggBikeStations;\nSELECT TOP 10 * FROM BikeStation;\nSELECT TOP 10 * FROM FactWeather;\nSELECT TOP 10 * FROM AirPollution;\nSELECT TOP 10 * FROM DimAirPollution;\nSELECT TOP 10 * FROM AggWeather;\nSELECT TOP 10 * FROM AggAQI;\nSELECT TOP 10 * FROM AggPollutants;\nSELECT TOP 10 * FROM AggTempExtremes;",
 					"metadata": {
 						"language": "sql"
 					},
@@ -406,12 +626,12 @@
 			"location": "eastus2"
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/ExternalAirPollution')]",
+			"name": "[concat(parameters('workspaceName'), '/ExternalAggDateStations')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "CREATE EXTERNAL TABLE ExternalAirPollution (\n    lon FLOAT,\n    lat FLOAT,\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    o3_8hr FLOAT,\n    o3_1hr FLOAT,\n    pm2_5_24hr FLOAT,\n    pm10_24hr FLOAT,\n    co_8hr FLOAT,\n    so2_1hr FLOAT,\n    so2_24hr FLOAT,\n    no2_1hr FLOAT,\n    us_aqi INT\n)\nWITH (\n    LOCATION = 'gold/processed_air_pollution/processed_air_pollution.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
+					"query": "-- Create external table ExternalAggDateStations\n\nCREATE EXTERNAL TABLE ExternalAggDateStations(\n    start_date DATE,\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n)\nWITH (\n    LOCATION = 'gold/agg_date_station/parquet/agg_date_station.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
 					"metadata": {
 						"language": "sql"
 					},
@@ -426,152 +646,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/DimAirPollution')]",
+			"name": "[concat(parameters('workspaceName'), '/AggDateStations')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- Create and load DimAirPollution table\nCREATE TABLE DimAirPollution (\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    id NVARCHAR(100)\n);\nGO\n\nINSERT INTO DimAirPollution (\n    aqi, \n    co, \n    no, \n    no2, \n    o3, \n    so2, \n    pm2_5, \n    pm10, \n    nh3, \n    id\n)\nSELECT DISTINCT\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    id\nFROM\n    ExternalAirPollution;",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AirPollution')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- Create and load AirPollution table\nCREATE TABLE AirPollution (\n    lon FLOAT,\n    lat FLOAT,\n    aqi INT,\n    co FLOAT,\n    no FLOAT,\n    no2 FLOAT,\n    o3 FLOAT,\n    so2 FLOAT,\n    pm2_5 FLOAT,\n    pm10 FLOAT,\n    nh3 FLOAT,\n    corrected_timestamp INT,\n    location NVARCHAR(100),\n    date_time DATETIME,\n    id NVARCHAR(100),\n    o3_8hr FLOAT,\n    o3_1hr FLOAT,\n    pm2_5_24hr FLOAT,\n    pm10_24hr FLOAT,\n    co_8hr FLOAT,\n    so2_1hr FLOAT,\n    so2_24hr FLOAT,\n    no2_1hr FLOAT,\n    us_aqi INT,\n    date DATE\n);\nGO\n\nINSERT INTO AirPollution (\n    lon,\n    lat,\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    corrected_timestamp,\n    location,\n    date_time,\n    id,\n    o3_8hr,\n    o3_1hr,\n    pm2_5_24hr,\n    pm10_24hr,\n    co_8hr,\n    so2_1hr,\n    so2_24hr,\n    no2_1hr,\n    us_aqi,\n    date\n)\nSELECT\n    lon,\n    lat,\n    aqi,\n    co,\n    no,\n    no2,\n    o3,\n    so2,\n    pm2_5,\n    pm10,\n    nh3,\n    corrected_timestamp,\n    location,\n    date_time,\n    id,\n    o3_8hr,\n    o3_1hr,\n    pm2_5_24hr,\n    pm10_24hr,\n    co_8hr,\n    so2_1hr,\n    so2_24hr,\n    no2_1hr,\n    us_aqi,\n    CAST(date_time AS DATE) AS date\nFROM\n    ExternalAirPollution;",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/ExternalAggWeather')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "CREATE EXTERNAL TABLE ExternalAggWeather (\n    date NVARCHAR(100),\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n)\nWITH (\n    LOCATION = 'gold/agg_weather/agg_weather.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat \n);\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AggWeather')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- Create the AggWeather table\nCREATE TABLE AggWeather (\n    date NVARCHAR(100),\n    avg_temp_C FLOAT, \n    avg_humidity FLOAT,\n    avg_wind_speed FLOAT,\n    max_temp_F FLOAT,\n    min_temp_F FLOAT,\n    weather_records BIGINT\n);\nGO\n\n-- Insert data into AggWeather\nINSERT INTO AggWeather (date, avg_temp_C, avg_humidity, avg_wind_speed, max_temp_F, min_temp_F, weather_records)\nSELECT \n    date,\n    avg_temp_C, \n    avg_humidity,\n    avg_wind_speed,\n    max_temp_F,\n    min_temp_F,\n    weather_records\nFROM \n    ExternalAggWeather\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/ExternalAggAQI')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "CREATE EXTERNAL TABLE ExternalAggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_aqi/agg_aqi.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AggAQI')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "CREATE TABLE AggAQI (\n    date DATE,\n    avg_us_aqi FLOAT\n);\nGO\n\n-- Insert data into AggAQI\nINSERT INTO AggAQI (\n    date, \n    avg_us_aqi\n)\nSELECT \n    date,\n    avg_us_aqi\nFROM \n    ExternalAggAQI\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/ExternalAggPollutants')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "CREATE EXTERNAL TABLE ExternalAggPollutants (\n    date DATE,\n    avg_co FLOAT,\n    avg_no2 FLOAT,\n    avg_o3 FLOAT,\n    avg_so2 FLOAT,\n    avg_pm2_5 FLOAT,\n    avg_pm10 FLOAT\n)\nWITH (\n    LOCATION = 'gold/agg_pollutants/agg_pollutants.parquet',\n    DATA_SOURCE = MyDataSource,\n    FILE_FORMAT = ParquetFileFormat\n);\nGO",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "ds598team3sqlpool",
-						"poolName": "ds598team3sqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AggPollutants')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "CREATE TABLE AggPollutants (\n    date DATE,\n    avg_co FLOAT,\n    avg_no2 FLOAT,\n    avg_o3 FLOAT,\n    avg_so2 FLOAT,\n    avg_pm2_5 FLOAT,\n    avg_pm10 FLOAT\n);\nGO\n\n-- Insert data into AggPollutants\nINSERT INTO AggPollutants (date, avg_co, avg_no2, avg_o3, avg_so2, avg_pm2_5, avg_pm10)\nSELECT \n    date,\n    avg_co,\n    avg_no2,\n    avg_o3,\n    avg_so2,\n    avg_pm2_5,\n    avg_pm10\nFROM \n    ExternalAggPollutants\nGO",
+					"query": "-- Create AggDateStations table with matching data types (internal sql table)\n\nCREATE TABLE AggDateStations (\n    start_date DATE,\n    station_name NVARCHAR(100), \n    station_id NVARCHAR(100),\n    count INT\n);\nGO\n\n-- Insert data into AggDateStations\nINSERT INTO AggDateStations (\n    station_name,\n    station_id,\n    count\n)\nSELECT\n    start_date\n    station_name,\n    station_id,\n    count\nFROM \n    ExternalAggDateStations;\nGO",
 					"metadata": {
 						"language": "sql"
 					},
